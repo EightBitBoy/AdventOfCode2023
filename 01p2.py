@@ -26,21 +26,21 @@ for line in input:
 
   lowestLastIndex = -1
   lowestLastIndexKey = ""
-  
+
   # search from the begining
   for number, textNumber in textDigits.items():
     found = lineValue.find(textNumber)
     if (found >= 0 and found < lowestFirstIndex):
       lowestFirstIndex = found
       lowestFirstIndexKey = number
-  
+
   # search from the end
   for number, textNumber in textDigits.items():
     found = lineValue.rfind(textNumber)
     if (found >= 0 and found > lowestLastIndex):
       lowestLastIndex = found
       lowestLastIndexKey = number
-  
+
   calibrationValues.append(int(lowestFirstIndexKey + lowestLastIndexKey))
 
 print(sum(calibrationValues))

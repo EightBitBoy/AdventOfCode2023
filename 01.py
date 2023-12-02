@@ -17,7 +17,7 @@ for line in input:
     if character.isdigit():
       lastDigit = character
       break
-    
+
   calibrationValues.append(int(firstDigit + lastDigit))
 
 print(sum(calibrationValues))
