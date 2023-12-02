@@ -1,7 +1,3 @@
-NUM_RED = 12
-NUM_GREEN = 13
-NUM_BLUE = 14
-
 class Game:
     def __init__(self, id):
         self.id = id
@@ -21,7 +17,7 @@ class Round:
         return f"r{self.numRed} g{self.numGreen} b{self.numBlue}"
 
 
-input = open("02-input-test.txt", "r")
+input = open("02-input.txt", "r")
 lines = input.read().splitlines()
 
 games = []
@@ -57,19 +53,14 @@ for line in lines:
 
 # print(*games, sep="\n")
 
-possibleGamesSum = 0
+gamesPowerSum = 0
 
 for game in games:
-    isGamePossible = True
+    maxRed = max(game.rounds, key=lambda x: x.numRed).numRed
+    maxGreen = max(game.rounds, key=lambda x: x.numGreen).numGreen
+    maxBlue = max(game.rounds, key=lambda x: x.numBlue).numBlue
 
-    if max(game.rounds, key=lambda x: x.numRed).numRed > NUM_RED:
-        isGamePossible = False
-    if max(game.rounds, key=lambda x: x.numGreen).numGreen > NUM_GREEN:
-        isGamePossible = False
-    if max(game.rounds, key=lambda x: x.numBlue).numBlue > NUM_BLUE:
-        isGamePossible = False
-    
-    if isGamePossible:
-        possibleGamesSum += game.id
+    gamePower = maxRed * maxGreen * maxBlue
+    gamesPowerSum += gamePower
 
-print(possibleGamesSum)
+print(gamesPowerSum)
