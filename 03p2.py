@@ -14,6 +14,18 @@ class Coordinates:
     self.x = x
     self.y = y
 
+  def __repr__(self):
+    return f"{x}:{y}"
+
+  def __hash__(self):
+    return hash(self.__repr__())
+
+  def __eq__(self, other):
+    if isinstance(other, Coordinates):
+        return self.__repr__() == other.__repr__()
+    else:
+        return False
+
 class NumberWithAdjacents:
     def __init__(self, value, adjacentCoordinates, startCoordinates):
       self.value = value
@@ -23,15 +35,25 @@ class NumberWithAdjacents:
     def __repr__(self):
       return f"{self.value}"
 
-    def isAdjacentToSymbol(self):
+    def isAdjacentToSymbol(self, symbol):
       for coordinate in self.adjacentCoordinates:
         if coordinate.x < 0 or coordinate.x > LINE_LENGTH - 1:
           continue
         if coordinate.y < 0 or coordinate.y > LINES_NUM -1:
           continue
-        if not data[coordinate.y][coordinate.x].isdigit() and data[coordinate.y][coordinate.x] != ".":
+        if data[coordinate.y][coordinate.x] == symbol:
           return True
       return False
+
+    def getCoordinatesForAdjactentWithSymbol(self, symbol):
+      for coordinate in self.adjacentCoordinates:
+        if coordinate.x < 0 or coordinate.x > LINE_LENGTH - 1:
+          continue
+        if coordinate.y < 0 or coordinate.y > LINES_NUM -1:
+          continue
+        if data[coordinate.y][coordinate.x] == symbol:
+          return coordinate
+
 
 def getAdjacents(x, y):
   adjacents = []
@@ -83,9 +105,13 @@ for y, rowValue in enumerate(data):
       digits = ""
       adjacents = []
 
-sum = 0
+candidates = []
+symbolCoordinates = set()
 for number in numbersWithAdjacents:
-  if number.isAdjacentToSymbol():
-    sum += number.value
+  if number.isAdjacentToSymbol("*"):
+    candidates.append(number)
+    symbolCoordinates.add(number.getCoordinatesForAdjactentWithSymbol("*"))
 
-print(sum)
+print(len(candidates))
+print(len(symbolCoordinates))
+print(symbolCoordinates)
