@@ -77,14 +77,13 @@ for y, rowValue in enumerate(data):
       adjacents = set()
 
 sum = 0
-
 for number in numbersWithAdjacents:
   if number.isAdjacentToSymbol():
     print(number.value)
     sum += number.value
 
-# print(symbols)
+print(symbols)
 # print(numbersWithAdjacents)
-# print(sum)
+print(sum)
 
 # print(*data, sep="\n")
