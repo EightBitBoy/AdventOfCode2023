@@ -15,7 +15,7 @@ class Coordinates:
     self.y = y
 
   def __repr__(self):
-    return f"{x}:{y}"
+    return f"{self.x}:{self.y}"
 
   def __hash__(self):
     return hash(self.__repr__())
@@ -45,7 +45,7 @@ class NumberWithAdjacents:
           return True
       return False
 
-    def getCoordinatesForAdjactentWithSymbol(self, symbol):
+    def getCoordinatesForAdjactentWithSymbol(self, symbol) -> Coordinates:
       for coordinate in self.adjacentCoordinates:
         if coordinate.x < 0 or coordinate.x > LINE_LENGTH - 1:
           continue
@@ -105,13 +105,19 @@ for y, rowValue in enumerate(data):
       digits = ""
       adjacents = []
 
-candidates = []
 symbolCoordinates = set()
 for number in numbersWithAdjacents:
   if number.isAdjacentToSymbol("*"):
-    candidates.append(number)
     symbolCoordinates.add(number.getCoordinatesForAdjactentWithSymbol("*"))
 
-print(len(candidates))
-print(len(symbolCoordinates))
-print(symbolCoordinates)
+sum = 0
+for coordinates in symbolCoordinates:
+  numbersWithSharedSymbol = []
+  for number in numbersWithAdjacents:
+    if coordinates in number.adjacentCoordinates:
+      numbersWithSharedSymbol.append(number)
+
+  if len(numbersWithSharedSymbol) == 2:
+    sum += numbersWithSharedSymbol[0].value * numbersWithSharedSymbol[1].value
+
+print(sum)
