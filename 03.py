@@ -33,21 +33,21 @@ class NumberWithAdjacents:
       return False
 
 def getAdjacents(x, y):
-  adjacents = set()
+  adjacents = []
 
   # same row
-  adjacents.add(Coordinates(x - 1, y + 0))
-  adjacents.add(Coordinates(x + 1, y + 0))
+  adjacents.append(Coordinates(x - 1, y + 0))
+  adjacents.append(Coordinates(x + 1, y + 0))
 
   # top row
-  adjacents.add(Coordinates(x - 1, y + 1))
-  adjacents.add(Coordinates(x + 0, y + 1))
-  adjacents.add(Coordinates(x + 1, y + 1))
+  adjacents.append(Coordinates(x - 1, y + 1))
+  adjacents.append(Coordinates(x + 0, y + 1))
+  adjacents.append(Coordinates(x + 1, y + 1))
 
   #bottom row
-  adjacents.add(Coordinates(x - 1, y - 1))
-  adjacents.add(Coordinates(x + 0, y - 1))
-  adjacents.add(Coordinates(x + 1, y - 1))
+  adjacents.append(Coordinates(x - 1, y - 1))
+  adjacents.append(Coordinates(x + 0, y - 1))
+  adjacents.append(Coordinates(x + 1, y - 1))
 
   return adjacents
 
