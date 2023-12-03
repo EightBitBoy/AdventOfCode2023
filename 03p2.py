@@ -27,10 +27,9 @@ class Coordinates:
         return False
 
 class NumberWithAdjacents:
-    def __init__(self, value, adjacentCoordinates, startCoordinates):
+    def __init__(self, value, adjacentCoordinates):
       self.value = value
       self.adjacentCoordinates = adjacentCoordinates
-      self.startCoordinates = startCoordinates
 
     def __repr__(self):
       return f"{self.value}"
@@ -89,19 +88,16 @@ for line in lines:
 for y, rowValue in enumerate(data):
   digits = ""
   adjacents = []
-  startCoordinates = None
 
   for x, columnValue in enumerate(rowValue):
     if columnValue.isdigit():
-      if digits == "":
-        startCoordinates = Coordinates(x,y)
       digits += columnValue
       for adjacent in getAdjacents(x, y):
         adjacents.append(adjacent)
 
     if digits != "" and ((not columnValue.isdigit()) or x == LINE_LENGTH -1):
       numbersWithAdjacents.append(
-        NumberWithAdjacents(int(digits), adjacents,startCoordinates))
+        NumberWithAdjacents(int(digits), adjacents))
       digits = ""
       adjacents = []
 
