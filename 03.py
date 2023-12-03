@@ -54,25 +54,28 @@ def getAdjacents(x, y):
 # prepare data and extract symbols
 for line in lines:
   lineData = []
+
   for character in line:
     lineData.append(character)
     if not character.isdigit() and character != ".":
       symbols.add(character)
+
   data.append(lineData)
 
 # extract numbers and adjacent coordinates
 for y, rowValue in enumerate(data):
   digits = ""
   adjacents = set()
+
   for x, columnValue in enumerate(rowValue):
     if columnValue.isdigit():
       digits += columnValue
       for adjacent in getAdjacents(x, y):
         adjacents.add(adjacent)
+
     if not columnValue.isdigit() and digits != "":
       numbersWithAdjacents.append(
-        NumberWithAdjacents(int(digits), adjacents)
-      )
+        NumberWithAdjacents(int(digits), adjacents))
       digits = ""
       adjacents = set()
 
