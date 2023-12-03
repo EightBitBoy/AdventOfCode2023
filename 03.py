@@ -15,9 +15,10 @@ class Coordinates:
     self.y = y
 
 class NumberWithAdjacents:
-    def __init__(self, value, adjacentCoordinates):
+    def __init__(self, value, adjacentCoordinates, startCoordinates):
       self.value = value
       self.adjacentCoordinates = adjacentCoordinates
+      self.startCoordinates = startCoordinates
 
     def __repr__(self):
       return f"{self.value}"
@@ -28,7 +29,7 @@ class NumberWithAdjacents:
           continue
         if coordinate.y < 0 or coordinate.y > LINES_NUM -1:
           continue
-        if data[coordinate.y][coordinate.x] in symbols:
+        if not data[coordinate.y][coordinate.x].isdigit() and data[coordinate.y][coordinate.x] != ".":
           return True
       return False
 
@@ -65,29 +66,26 @@ for line in lines:
 # extract numbers and adjacent coordinates
 for y, rowValue in enumerate(data):
   digits = ""
-  adjacents = set()
+  adjacents = []
+  startCoordinates = None
 
   for x, columnValue in enumerate(rowValue):
     if columnValue.isdigit():
+      if digits == "":
+        startCoordinates = Coordinates(x,y)
       digits += columnValue
       for adjacent in getAdjacents(x, y):
-        adjacents.add(adjacent)
+        adjacents.append(adjacent)
 
-    if not columnValue.isdigit() and digits != "":
+    if digits != "" and ((not columnValue.isdigit()) or x == LINE_LENGTH -1):
       numbersWithAdjacents.append(
-        NumberWithAdjacents(int(digits), adjacents))
+        NumberWithAdjacents(int(digits), adjacents,startCoordinates))
       digits = ""
-      adjacents = set()
+      adjacents = []
 
 sum = 0
 for number in numbersWithAdjacents:
   if number.isAdjacentToSymbol():
-    print(number.value)
     sum += number.value
 
-# print(symbols)
-# print(numbersWithAdjacents)
 print(sum)
-
-# print(*data, sep="\n")
-# 527626
