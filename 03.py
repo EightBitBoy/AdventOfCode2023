@@ -24,9 +24,9 @@ class NumberWithAdjacents:
 
     def isAdjacentToSymbol(self):
       for coordinate in self.adjacentCoordinates:
-        if coordinate.x < 0 or coordinate.x >= LINE_LENGTH:
+        if coordinate.x < 0 or coordinate.x > LINE_LENGTH - 1:
           continue
-        if coordinate.y < 0 or coordinate.y >= LINES_NUM:
+        if coordinate.y < 0 or coordinate.y > LINES_NUM -1:
           continue
         if data[coordinate.y][coordinate.x] in symbols:
           return True
@@ -85,8 +85,9 @@ for number in numbersWithAdjacents:
     print(number.value)
     sum += number.value
 
-print(symbols)
+# print(symbols)
 # print(numbersWithAdjacents)
 print(sum)
 
 # print(*data, sep="\n")
+# 527626
