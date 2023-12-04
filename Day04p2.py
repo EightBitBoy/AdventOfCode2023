@@ -1,13 +1,13 @@
-input = open("Day04-input-test.txt", "r")
+input = open("Day04-input.txt", "r")
 lines = input.read().splitlines()
 
-# print(*lines, sep="\n")
 
 cards = []
 
 
 class Card:
   def __init__(self, id, winningNumbers, numbers):
+    self.instances = 1
     self.id = id
     self.winningNumbers = winningNumbers
     self.numbers = numbers
@@ -40,8 +40,16 @@ for line in lines:
   cards.append(Card(cardId, winningNumbers, numbers))
 
 
-card_1 = cards[0]
-stack = {card_1: 1}
-winning = True
+for card in cards:
+  numWinning = card.getMatches()
 
-print(card_1.getMatches())
+  for n in range(card.id + 1, card.id + 1 + numWinning):
+    if n <= len(cards):
+      cards[n - 1].instances += card.instances
+
+
+sumCards = 0
+for card in cards:
+  sumCards += card.instances
+
+print(f"Sum: {sumCards}")
