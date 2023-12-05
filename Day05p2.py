@@ -1,4 +1,4 @@
-input = open("Day05-input.txt", "r")
+input = open("Day05-input-test.txt", "r")
 lines = input.read().splitlines()
 
 class Mapping:
@@ -23,13 +23,11 @@ class Seed:
   def __init__(self, number: int) -> None:
     self.number = number
   def __repr__(self) -> str:
-    return f"S+{self.number}"
+    return f"S@{self.number}"
   def transform(self, map: Map) -> None:
     for mapping in map.mappings:
-      #if self.number in range(mapping.sourceStart, mapping.sourceStart + mapping.range - 1):
       if mapping.sourceStart <= self.number <= mapping.sourceStart + mapping.range - 1:
         difference = self.number - mapping.sourceStart
-        # print(difference)
         self.number = mapping.destinationStart + difference
         break
 
@@ -37,11 +35,14 @@ class Seed:
 seeds = []
 maps = []
 
-
 seedsLine = lines[0].replace("seeds: ", "")
 seedsSplit = seedsLine.split(" ")
-for item in seedsSplit:
-    seeds.append(Seed(int(item)))
+seedPairs = list(map(int, seedsSplit))
+for i in range(0, len(seedPairs), 2):
+  print("###")
+  for seedNumber in range(seedPairs[i], seedPairs[i] + seedPairs[i+1]):
+    print(seedNumber)
+    seeds.append(Seed(seedNumber))
 
 lines.pop(0)
 lines.pop(0)
@@ -71,4 +72,5 @@ for seed in seeds:
     seed.transform(map)
 
 print(seeds)
+print("####")
 print(min(seeds, key=lambda x: x.number))
