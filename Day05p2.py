@@ -69,6 +69,4 @@ for seed in seeds:
   for map in maps:
     seed.transform(map)
 
-print(seeds)
-print("####")
 print(min(seeds, key=lambda x: x.number))
