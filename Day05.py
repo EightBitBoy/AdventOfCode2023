@@ -71,3 +71,4 @@ for seed in seeds:
     seed.transform(map)
 
 print(seeds)
+print(min(seeds, key=lambda x: x.number))
