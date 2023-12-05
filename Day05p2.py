@@ -1,5 +1,9 @@
-input = open("Day05-input.txt", "r")
+import sys
+
+
+input = open("Day05-input-test.txt", "r")
 lines = input.read().splitlines()
+
 
 class Mapping:
   def __init__(self, sourceStart, destinationStart, range) -> None:
@@ -20,28 +24,21 @@ class Map:
 
 
 class Seed:
-  def __init__(self, number: int) -> None:
-    self.number = number
-  def __repr__(self) -> str:
-    return f"S@{self.number}"
-  def transform(self, map: Map) -> None:
+  def transform(map: Map, value) -> None:
     for mapping in map.mappings:
-      if mapping.sourceStart <= self.number <= mapping.sourceStart + mapping.range - 1:
-        difference = self.number - mapping.sourceStart
-        self.number = mapping.destinationStart + difference
-        break
+      if mapping.sourceStart <= value <= mapping.sourceStart + mapping.range - 1:
+        difference = value - mapping.sourceStart
+        return mapping.destinationStart + difference
+    return value
 
 
-seeds = []
 maps = []
+
 
 print("# creating seeds")
 seedsLine = lines[0].replace("seeds: ", "")
 seedsSplit = seedsLine.split(" ")
 seedPairs = list(map(int, seedsSplit))
-for i in range(0, len(seedPairs), 2):
-  for seedNumber in range(seedPairs[i], seedPairs[i] + seedPairs[i+1]):
-    seeds.append(Seed(seedNumber))
 
 lines.pop(0)
 lines.pop(0)
@@ -67,12 +64,26 @@ for index, line in enumerate(lines):
     maps.append(map)
 
 print("# transforming seeds")
-numSeeds = len(seeds)
-for index, seed in enumerate(seeds):
-  if index % 1000 == 0:
-    print(f"{index} of {numSeeds}")
-  for map in maps:
-    seed.transform(map)
+# numSeeds = len(seeds)
+# for index, seed in enumerate(seeds):
+#   if index % 1000 == 0:
+#     print(f"{index} of {numSeeds}")
+#   for map in maps:
+#     seed.transform(map)
+
+processed = 0
+minimum = sys.maxsize
+for i in range(0, len(seedPairs), 2):
+  for seedNumber in range(seedPairs[i], seedPairs[i] + seedPairs[i+1]):
+    number = seedNumber
+    for map in maps:
+      number = Seed.transform(map, number)
+    if number < minimum:
+      minimum = number
+    processed += 1
+    if processed % 1000 == 0:
+      print(f"{index} of {numSeeds}")
+
 
 print("####")
-print(min(seeds, key=lambda x: x.number))
+print(minimum)
