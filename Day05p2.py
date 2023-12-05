@@ -73,6 +73,7 @@ print("# transforming seeds")
 
 processed = 0
 minimum = sys.maxsize
+print(minimum)
 for i in range(0, len(seedPairs), 2):
   for seedNumber in range(seedPairs[i], seedPairs[i] + seedPairs[i+1]):
     number = seedNumber
@@ -80,9 +81,10 @@ for i in range(0, len(seedPairs), 2):
       number = Seed.transform(map, number)
     if number < minimum:
       minimum = number
+      print(f"New min: {minimum}")
     processed += 1
-    if processed % 10000 == 0:
-      print(f"{processed}")
+    if processed % 100000 == 0:
+      print(f"# {processed}")
 
 
 print("####")
