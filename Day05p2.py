@@ -1,7 +1,7 @@
 import sys
 
 
-input = open("Day05-input-test.txt", "r")
+input = open("Day05-input.txt", "r")
 lines = input.read().splitlines()
 
 
@@ -81,8 +81,8 @@ for i in range(0, len(seedPairs), 2):
     if number < minimum:
       minimum = number
     processed += 1
-    if processed % 1000 == 0:
-      print(f"{index} of {numSeeds}")
+    if processed % 10000 == 0:
+      print(f"{processed}")
 
 
 print("####")
