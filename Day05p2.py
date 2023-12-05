@@ -1,5 +1,5 @@
 import sys
-
+import datetime
 
 input = open("Day05-input.txt", "r")
 lines = input.read().splitlines()
@@ -73,7 +73,7 @@ print("# transforming seeds")
 
 processed = 0
 minimum = sys.maxsize
-print(minimum)
+print(f"### START {datetime.datetime.now()}")
 for i in range(0, len(seedPairs), 2):
   for seedNumber in range(seedPairs[i], seedPairs[i] + seedPairs[i+1]):
     number = seedNumber
@@ -83,9 +83,10 @@ for i in range(0, len(seedPairs), 2):
       minimum = number
       print(f"New min: {minimum}")
     processed += 1
-    if processed % 100000 == 0:
-      print(f"# {processed}")
+    if processed % 1000000 == 0:
+      print(f"{processed}")
 
 
 print("####")
+print(f"### END {datetime.datetime.now()}")
 print(minimum)
