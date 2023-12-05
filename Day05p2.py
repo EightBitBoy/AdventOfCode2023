@@ -35,6 +35,7 @@ class Seed:
 seeds = []
 maps = []
 
+print("# creating seeds")
 seedsLine = lines[0].replace("seeds: ", "")
 seedsSplit = seedsLine.split(" ")
 seedPairs = list(map(int, seedsSplit))
@@ -45,6 +46,7 @@ for i in range(0, len(seedPairs), 2):
 lines.pop(0)
 lines.pop(0)
 
+print("# creating maps")
 map = None
 for index, line in enumerate(lines):
   if "map:" in line:
@@ -64,9 +66,13 @@ for index, line in enumerate(lines):
   if index == len(lines) - 1 and map != None:
     maps.append(map)
 
-
-for seed in seeds:
+print("# transforming seeds")
+numSeeds = len(seeds)
+for index, seed in enumerate(seeds):
+  if index % 1000 == 0:
+    print(f"{index} of {numSeeds}")
   for map in maps:
     seed.transform(map)
 
+print("####")
 print(min(seeds, key=lambda x: x.number))
