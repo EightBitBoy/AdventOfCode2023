@@ -1,4 +1,4 @@
-input = open("Day05-input-test.txt", "r")
+input = open("Day05-input.txt", "r")
 lines = input.read().splitlines()
 
 class Mapping:
@@ -39,9 +39,7 @@ seedsLine = lines[0].replace("seeds: ", "")
 seedsSplit = seedsLine.split(" ")
 seedPairs = list(map(int, seedsSplit))
 for i in range(0, len(seedPairs), 2):
-  print("###")
   for seedNumber in range(seedPairs[i], seedPairs[i] + seedPairs[i+1]):
-    print(seedNumber)
     seeds.append(Seed(seedNumber))
 
 lines.pop(0)
