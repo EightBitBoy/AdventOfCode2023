@@ -58,7 +58,7 @@ for index, line in enumerate(lines):
     continue
 
   if line != "":
-    lineSplit = line.split(" ")
+    lineSplit = line.split()
     mapping = Mapping(int(lineSplit[1]), int(lineSplit[0]), int(lineSplit[2]))
     map.mappings.append(mapping)
 
